@@ -45,17 +45,18 @@ player_data = [
 def getAllPlayers():
     return jsonify(player_data)
 
-@app.route("/players/test", methods=["GET"])
-def getAllPlayersTest():
+# Endpoint to return a player details by ID from third-party API.
+@app.route("/players/<int:player_id>", methods=["GET"])
+def getAllPlayersTest(player_id):
 
-    url = "https://v3.football.api-sports.io/players/profiles?player=276"
+    url = f"https://v3.football.api-sports.io/players/profiles?player={player_id}"
 
     payload={}
     response = requests.request("GET", url, headers=headers, data=payload)
 
-    pprint(response.json())
+    player_info = response.json()
     
-    return jsonify(player_data)
+    return jsonify(player_info)
 
 
 # @app.route("/players/status", methods=["GET"])
@@ -81,7 +82,6 @@ def getAllPlayersTest():
 #         return send_file(BytesIO(response.content), mimetype='image/png')
 #     else:
 #         return jsonify({"error": "Failed to fetch image"}), response.status_code    
-    
 
 
 if __name__ == "__main__":
