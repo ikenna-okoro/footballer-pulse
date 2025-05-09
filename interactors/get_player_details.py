@@ -1,6 +1,7 @@
 from typing import Protocol
 from entities.player import Player
 
+# Interface for the PlayerRepository
 class PlayerRepository(Protocol):
 
     def get_player_by_id(self, player_id: int) -> Player:
