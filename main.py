@@ -11,8 +11,8 @@ API_KEY = os.getenv("API_KEY")
 # Home screen
 @app.route("/", methods=["GET"])
 def homePage():
-    return "Welcome to the Football API!"
-
+    return "<h1> Welcome to the Football-Pulse!</h1><p> This is a simple API to get player details.</p>"
+    
 
 @app.route("/players/<int:player_id>", methods=["GET"])
 def get_player_details(player_id):
