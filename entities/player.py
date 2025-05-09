@@ -5,7 +5,5 @@ class Player:
         self.position = position
         self.nationality = nationality
 
-    def __str__(self):
+    def __repr__(self):
         return f"{self.name} ({self.position} - {self.nationality})"
-        
-
