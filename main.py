@@ -17,17 +17,15 @@ def homePage():
 
 @bp.route("/players/<int:player_id>", methods=["GET"])
 def get_player_details(player_id):
-    # request model
+
     player_repository = FootballAPIPlayerRepository(API_KEY)
     use_case = GetPlayerDetailsUseCase(player_repository)
     
-    # response model
     player_info = use_case.execute(player_id)
 
     return player_info
+ 
 
-    # return the player info as a JSON response    
-    # return jsonify(player_info)
 
 if __name__ == "__main__":
     app = Flask(__name__)

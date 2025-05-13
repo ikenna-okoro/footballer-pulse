@@ -40,13 +40,20 @@ player_data = [
     }
 ]
 
-# Endpoint to return a hardcoded player details.
+# Endpoint to return all hardcoded player details.
 @app.route("/players", methods=["GET"])
 def getAllPlayers():
     return jsonify(player_data)
 
-# Endpoint to return a player details by ID from third-party API.
+# Endpoint to return a hardcoded player details by id.
 @app.route("/players/<int:player_id>", methods=["GET"])
+def getPlayerById(player_id):
+    # this is a generator expression to find the player with the given id
+    player = next((player for player in player_data if player["id"] == player_id), None)
+    return jsonify(player)
+
+# Endpoint to return a player details by ID from third-party API.
+@app.route("/players/api/<int:player_id>", methods=["GET"])
 def getAllPlayersTest(player_id):
 
     url = f"https://v3.football.api-sports.io/players/profiles?player={player_id}"
@@ -57,31 +64,6 @@ def getAllPlayersTest(player_id):
     player_info = response.json()
     
     return jsonify(player_info)
-
-
-# @app.route("/players/status", methods=["GET"])
-# def getStatus():
-#     url = "https://v3.football.api-sports.io/status"
-#     payload={}
-#     response = requests.request("GET", url, headers=headers, data=payload)
-    
-#     return(response.json())
-
-
-# @app.route("/players/photo", methods=["GET"])
-# def getPlayerPhoto():
-#     player_id = 276
-#     if not player_id:
-#         return jsonify({"error": "Player ID is required"}), 400
-
-#     url = f"https://media.api-sports.io/football/players/{player_id}.png"
-#     response = requests.request("GET", url, headers=headers)
-    
-#     if response.status_code == 200:
-#         from io import BytesIO
-#         return send_file(BytesIO(response.content), mimetype='image/png')
-#     else:
-#         return jsonify({"error": "Failed to fetch image"}), response.status_code    
 
 
 if __name__ == "__main__":
