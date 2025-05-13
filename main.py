@@ -23,8 +23,11 @@ def get_player_details(player_id):
     
     # response model
     player_info = use_case.execute(player_id)
-    
-    return jsonify(player_info)
+
+    return player_info
+
+    # return the player info as a JSON response    
+    # return jsonify(player_info)
 
 if __name__ == "__main__":
     app = Flask(__name__)

@@ -24,12 +24,13 @@ class FootballAPIPlayerRepository(PlayerRepository):
                 position=player_data['response'][0]['player']['position'],
                 nationality=player_data['response'][0]['player']['nationality']
             )
-            return {
-                "id": player.id,
-                "name": player.name,
-                "position": player.position,
-                "nationality": player.nationality
-            }
+            return player.__repr__()
+            # return {
+            #     "id": player.id,
+            #     "name": player.name,
+            #     "position": player.position,
+            #     "nationality": player.nationality
+            # }
         
         else:
             raise Exception(f"Error fetching player data: {response.status_code}")
