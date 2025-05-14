@@ -18,6 +18,6 @@ class GetPlayerDetailsUseCase:
         self.repository = repository
 
     # Method to execute the use case
-    def execute(self, player_id: int) -> Player:
-        return self.repository.get_player_by_id(player_id)
+    def execute(self, player_name: int) -> Player:
+        return self.repository.get_player_by_name(player_name)
  

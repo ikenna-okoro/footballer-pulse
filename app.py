@@ -65,6 +65,33 @@ def getAllPlayersTest(player_id):
     
     return jsonify(player_info)
 
+# Endpoint to return a player details by last name from third-party API.
+@app.route("/players/api/<string:player_lastname>", methods=["GET"])
+def getPlayerByLastName(player_lastname):
+
+    url = f"https://v3.football.api-sports.io/players/profiles?search={player_lastname}"
+
+    payload={}
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    player_info = response.json()
+    
+    return jsonify(player_info)
+
+# Endpoint to return all player details from third-party API.
+@app.route("/players/api/", methods=["GET"])
+def getAllPlayersTestAPI():
+
+    url = f"https://v3.football.api-sports.io/players/profiles"
+
+    payload={}
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    player_info = response.json()
+    
+    return jsonify(player_info)
+
+
 
 if __name__ == "__main__":
     # Run the app
