@@ -1,14 +1,5 @@
-from typing import Protocol
 from entities.player import Player
-
-# Interface for the PlayerRepository
-class PlayerRepository(Protocol):
-
-    def get_player_by_id(self, player_id: int) -> Player:
-        ...
-    
-    def get_player_by_name(self, player_name: str) -> Player:
-        ...
+from interfaces.player_repository import PlayerRepository
 
 # Interactor (use case) for getting player details
 class GetPlayerDetailsUseCase:
@@ -18,6 +9,10 @@ class GetPlayerDetailsUseCase:
         self.repository = repository
 
     # Method to execute the use case
-    def execute(self, player_name: int) -> Player:
+    def execute_by_name(self, player_name: str) -> Player:
         return self.repository.get_player_by_name(player_name)
+    
+    # Method to execute the use case
+    def execute_by_id(self, player_id: int) -> Player:
+        return self.repository.get_player_by_id(player_id)
  

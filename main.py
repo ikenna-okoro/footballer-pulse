@@ -15,13 +15,24 @@ def homePage():
     return "<h1> Welcome to the Football-Pulse!</h1><p> This is a simple API to get player details.</p>"
     
 
-@bp.route("/players/<string:player_name>", methods=["GET"])
-def get_player_details(player_name):
+@bp.route("/players/name/<string:player_name>", methods=["GET"])
+def get_player_details_by_name(player_name):
 
     player_repository = FootballAPIPlayerRepository(API_KEY)
     use_case = GetPlayerDetailsUseCase(player_repository)
     
-    player_info = use_case.execute(player_name)
+    player_info = use_case.execute_by_name(player_name)
+
+    return player_info
+
+
+@bp.route("/players/id/<int:player_id>", methods=["GET"])
+def get_player_details_by_id(player_id):
+
+    player_repository = FootballAPIPlayerRepository(API_KEY)
+    use_case = GetPlayerDetailsUseCase(player_repository)
+    
+    player_info = use_case.execute_by_id(player_id)
 
     return player_info
  
