@@ -2,7 +2,6 @@ import requests
 from entities.player import Player
 from interactors.get_player_details import PlayerRepository
 
-
 class FootballAPIPlayerRepository(PlayerRepository):
     
     def __init__(self, api_key: str):
@@ -18,7 +17,6 @@ class FootballAPIPlayerRepository(PlayerRepository):
 
         if response.status_code != 200:
             raise Exception(f"Error fetching player data: {response.status_code}")
-        
 
         player_data = response.json()
 
@@ -35,7 +33,6 @@ class FootballAPIPlayerRepository(PlayerRepository):
  
         return [player.__repr__() for player in player_list]
     
-    
 
     def get_player_by_id(self, player_id: int) -> Player:
         url = f"https://v3.football.api-sports.io/players/profiles?player={player_id}"
@@ -48,10 +45,8 @@ class FootballAPIPlayerRepository(PlayerRepository):
         if response.status_code != 200:
             raise Exception(f"Error fetching player data: {response.status_code}")
         
-
         player_data = response.json()
 
-        
         player_obj = Player(
             id=player_data['response'][0]['player']['id'],
             name=player_data['response'][0]['player']['name'],
@@ -59,5 +54,4 @@ class FootballAPIPlayerRepository(PlayerRepository):
             nationality=player_data['response'][0]['player']['nationality']
         )
             
- 
         return player_obj.__repr__()

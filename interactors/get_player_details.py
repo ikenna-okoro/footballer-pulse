@@ -15,4 +15,3 @@ class GetPlayerDetailsUseCase:
     # Method to execute the use case
     def execute_by_id(self, player_id: int) -> Player:
         return self.repository.get_player_by_id(player_id)
- 
