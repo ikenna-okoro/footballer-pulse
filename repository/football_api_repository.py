@@ -1,11 +1,16 @@
 import requests
+from dotenv import load_dotenv
+import os
 from entities.player import Player
-from interactors.get_player_details import PlayerRepository
+# from interactors.get_player_details import PlayerRepository
 
-class FootballAPIPlayerRepository(PlayerRepository):
+
+
+class FootballAPIPlayerRepository():
     
-    def __init__(self, api_key: str):
-        self.api_key = api_key
+    def __init__(self):
+        load_dotenv()
+        self.api_key = os.getenv("API_KEY")
 
     def get_player_by_name(self, player_name: str) -> Player:
         url = f"https://v3.football.api-sports.io/players/profiles?search={player_name}"

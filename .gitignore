@@ -1,6 +1,6 @@
 **/__pycache__/
 .env
-app.py
+controller/app.py
 
 
 

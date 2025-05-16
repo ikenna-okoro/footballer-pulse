@@ -1,12 +1,13 @@
 from entities.player import Player
-from interfaces.player_repository import PlayerRepository
+from repository.football_api_repository import FootballAPIPlayerRepository
+
 
 # Interactor (use case) for getting player details
 class GetPlayerDetailsUseCase:
 
     # Constructor that takes a PlayerRepository instance object
-    def __init__(self, repository: PlayerRepository):
-        self.repository = repository
+    def __init__(self):
+        self.repository = FootballAPIPlayerRepository()
 
     # Method to execute the use case
     def execute_by_name(self, player_name: str) -> Player:
