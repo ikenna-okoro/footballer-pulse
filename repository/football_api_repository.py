@@ -1,7 +1,7 @@
 import requests
 from dotenv import load_dotenv
 import os
-from entities.player import Player
+from domain.player import Player
 # from interactors.get_player_details import PlayerRepository
 
 

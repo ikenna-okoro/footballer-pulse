@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import Blueprint
-from interactors.get_player_details import GetPlayerDetailsUseCase
+from service.get_player_details import GetPlayerDetailsUseCase
 
 
 bp = Blueprint('my_blueprint', __name__)

@@ -1,4 +1,4 @@
-from entities.player import Player
+from domain.player import Player
 from repository.football_api_repository import FootballAPIPlayerRepository
 
 
