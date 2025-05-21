@@ -8,6 +8,7 @@ class PlayerRepository:
         load_dotenv()
         self.api_key = os.getenv("API_KEY")
 
+
     def get_all_players(self):
         url = f"https://v3.football.api-sports.io/players/profiles"
         headers = {
@@ -53,6 +54,4 @@ class PlayerRepository:
 
         player_data = response.json()
 
-        return [Player.from_dict(player['player']) for player in player_data['response']]
-
-       
+        return [Player.from_dict(player['player']) for player in player_data['response']]     

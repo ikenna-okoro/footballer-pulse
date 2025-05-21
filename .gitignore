@@ -1,6 +1,9 @@
 **/__pycache__/
 .env
-controller/app.py
+app.py
+templates/
+interfaces/
+
 
 
 
