@@ -1,9 +1,26 @@
-class Player:
-    def __init__(self, id: int, name: str, position: str, nationality: str):
-        self.id = id
-        self.name = name
-        self.position = position
-        self.nationality = nationality
+import dataclasses
 
-    def __repr__(self):
-        return f"{self.name} ({self.position} - {self.nationality})"
+@dataclasses.dataclass
+class Player:
+    id: int
+    name: str
+    firstname: str
+    age: int
+    birth: str
+    height: str
+    weight: str
+    photo: str
+    lastname: str
+    position: str
+    number: int
+    nationality: str
+
+    @classmethod
+    def from_dict(cls, d):
+        return cls(**d)
+    
+    def to_dict(self):
+        return dataclasses.asdict(self)
+    
+
+

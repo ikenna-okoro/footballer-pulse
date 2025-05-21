@@ -1,6 +1,6 @@
-from flask import Flask
-from flask import Blueprint
-from service.get_player_details import GetPlayerDetailsUseCase
+from flask import Flask, Blueprint
+
+from service.player_list import GetPlayerDetailsUseCase
 
 
 bp = Blueprint('my_blueprint', __name__)
@@ -11,24 +11,29 @@ use_case = GetPlayerDetailsUseCase()
 @bp.route("/", methods=["GET"])
 def homePage():
     return "<h1> Welcome to the Football-Pulse!</h1><p> This is a simple API to get player details.</p>"
-    
-# Endpoint to return a player details by lastname from third-party API.
-@bp.route("/players/name/<string:player_name>", methods=["GET"])
-def get_player_details_by_name(player_name):
-    
-    player_info = use_case.execute_by_name(player_name)
 
-    return player_info
+# Return all players
+@bp.route("/players", methods=["GET"])
+def get_all_players():
+    return [player.to_dict() for player in use_case.player_list_use_case()]
 
-# Endpoint to return a player details by id from third-party API.
+# Return player by name
+@bp.route("/players/name/<string:lastname>", methods=["GET"])
+def get_player_by_name(lastname):
+    use_case_by_name = use_case.player_list_by_name_use_case(lastname)
+    if not use_case_by_name:
+        return {"error": "Player not found"}, 404
+    return [player.to_dict() for player in use_case_by_name]
+
+# Return player by id
 @bp.route("/players/id/<int:player_id>", methods=["GET"])
-def get_player_details_by_id(player_id):
-    
-    player_info = use_case.execute_by_id(player_id)
+def get_player_by_id(player_id):
+    use_case_by_id = use_case.player_list_by_id_use_case(player_id)
+    if not use_case_by_id:
+        return {"error": "Player not found"}, 404
+    return [player.to_dict() for player in use_case_by_id]
 
-    return player_info 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = Flask(__name__)
     app.register_blueprint(bp)
-    app.run(debug=True)   
+    app.run(debug=True)
