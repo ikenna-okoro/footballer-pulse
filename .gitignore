@@ -1,8 +1,8 @@
 **/__pycache__/
 .env
 app.py
-templates/
-interfaces/
+/templates/
+/interfaces/
 
 
 
