@@ -1,9 +1,12 @@
 from flask import Flask, Blueprint
+from repository.player_repo import PlayerRepository
 from service.player_list import GetPlayerDetailsUseCase
 
 
 bp = Blueprint('my_blueprint', __name__)
-use_case = GetPlayerDetailsUseCase()
+
+player_repository = PlayerRepository()
+use_case = GetPlayerDetailsUseCase(player_repository)
 
 
 # Home screen
