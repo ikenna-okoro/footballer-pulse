@@ -6,7 +6,7 @@ from domain.player import Player
 from domain.team import Team
 
 
-class PlayerRepository:
+class FootBallRepository:
     def __init__(self):
         load_dotenv()
         self.api_key = os.getenv("API_KEY")
@@ -77,7 +77,7 @@ class PlayerRepository:
         return [Player.from_dict(player) for data in player_data['response'] for player in data['players']]
     
 
-    def get_team_details_by_name(self, team_id: str):
+    def get_team_details_by_id(self, team_id: str):
         url = f"https://v3.football.api-sports.io/teams?id={team_id}"
         headers = {
         'x-apisports-key': self.api_key,

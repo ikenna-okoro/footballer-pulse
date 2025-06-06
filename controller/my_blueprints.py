@@ -1,15 +1,20 @@
 from flask import Flask, Blueprint, jsonify, request
-from repository.player_repo import PlayerRepository
+from repository.football_repo import FootBallRepository
 from repository.fan_comment_repo import CommentRepository
 from repository.fan_models import FansComment
-from service.player_list import GetPlayerDetailsUseCase 
+from service.player_list import PlayerDetailsUseCase
+from service.team_list import TeamDetailsUseCase 
 from service.fans_comment import FansCommentUseCase
 
 
 bp = Blueprint('my_blueprint', __name__)
 
-player_repository = PlayerRepository()
-use_case = GetPlayerDetailsUseCase(player_repository)
+player_repository = FootBallRepository()
+use_case = PlayerDetailsUseCase(player_repository)
+
+team_repository = FootBallRepository()
+team_details_use_case = TeamDetailsUseCase(team_repository)
+
 comment_repository = CommentRepository()
 fans_comment_use_case = FansCommentUseCase(comment_repository)
 
@@ -27,7 +32,7 @@ def get_all_players():
 
 
 # Return player by name
-@bp.route("/players/name/<string:lastname>", methods=["GET"])
+@bp.route("/players/<string:lastname>", methods=["GET"])
 def get_player_by_name(lastname):
     use_case_by_name = use_case.player_list_by_name_use_case(lastname)
     if not use_case_by_name:
@@ -36,25 +41,25 @@ def get_player_by_name(lastname):
 
 
 # Return player by id
-@bp.route("/players/id/<int:player_id>", methods=["GET"])
+@bp.route("/players/<int:player_id>", methods=["GET"])
 def get_player_by_id(player_id):
     use_case_by_id = use_case.player_list_by_id_use_case(player_id)
     if not use_case_by_id:
         return {"error": "Player not found"}, 404
     return [player.to_dict() for player in use_case_by_id]
 
-# Return players by team
+# Return players in a team (Squad)
 @bp.route("/players/team/<int:team_id>", methods=["GET"])
 def get_players_by_team(team_id):
-    use_case_by_team = use_case.player_list_by_team_use_case(team_id)
-    if not use_case_by_team:
+    use_case_by_team_squad = use_case.player_list_by_team_use_case(team_id)
+    if not use_case_by_team_squad:
         return {"error": "Team not found"}, 404
-    return [player.to_dict() for player in use_case_by_team]
+    return [player.to_dict() for player in use_case_by_team_squad]
 
 # Fans comments for a specific team
-@bp.route("/players/<int:team_id>", methods=["GET", "POST"])
+@bp.route("/teams/<int:team_id>", methods=["GET", "POST"])
 def team_details_for_fans(team_id):
-    usecase_by_team_details = use_case.team_details_use_case(team_id)
+    usecase_by_team_details = team_details_use_case.team_details_use_case(team_id)
     if not usecase_by_team_details:
         return {"error": "Team not found"}, 404
     team_name = usecase_by_team_details[0].name

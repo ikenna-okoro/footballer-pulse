@@ -1,7 +1,7 @@
-from repository.player_repo import PlayerRepository
+from repository.football_repo import FootBallRepository
 
-class GetPlayerDetailsUseCase:
-    def __init__(self, player_repo: PlayerRepository):
+class PlayerDetailsUseCase:
+    def __init__(self, player_repo: FootBallRepository):
         self.player_repo = player_repo
 
     def player_list_use_case(self):
@@ -15,7 +15,4 @@ class GetPlayerDetailsUseCase:
     
     def player_list_by_team_use_case(self, team_id):
         return self.player_repo.get_players_by_team(team_id)
-
-    def team_details_use_case(self, team_id):
-        return self.player_repo.get_team_details_by_name(team_id)
 

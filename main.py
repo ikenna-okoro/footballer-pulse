@@ -1,8 +1,7 @@
 from flask import Flask
 from sqlalchemy import text
 from repository.fan_models import db
-from my_blueprints import bp
-
+from controller.my_blueprints import bp
 
 
 # Configure the app
