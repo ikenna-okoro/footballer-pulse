@@ -12,3 +12,9 @@ class GetPlayerDetailsUseCase:
 
     def player_list_by_id_use_case(self, player_id):
         return self.player_repo.get_player_by_id(player_id)
+    
+    def player_list_by_team_use_case(self, team_id):
+        return self.player_repo.get_players_by_team(team_id)
+
+    def user_comments_use_case(self, team_name):
+        return self.player_repo.save_user_comments(team_name)

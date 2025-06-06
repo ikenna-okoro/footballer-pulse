@@ -1,19 +1,20 @@
 import dataclasses
+from typing import Optional
 
 @dataclasses.dataclass
 class Player:
     id: int
     name: str
-    firstname: str
     age: int
-    birth: str
-    height: str
-    weight: str
     photo: str
-    lastname: str
     position: str
     number: int
-    nationality: str
+    firstname: Optional[str] = ""
+    birth: Optional[str] = ""
+    height: Optional[str] = ""
+    weight: Optional[str] = ""
+    lastname: Optional[str] = ""
+    nationality: Optional[str] = ""
 
 
     @classmethod

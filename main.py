@@ -38,6 +38,14 @@ def get_player_by_id(player_id):
         return {"error": "Player not found"}, 404
     return [player.to_dict() for player in use_case_by_id]
 
+# Return players by team
+@bp.route("/players/team/<int:team_id>", methods=["GET"])
+def get_players_by_team(team_id):
+    use_case_by_team = use_case.player_list_by_team_use_case(team_id)
+    if not use_case_by_team:
+        return {"error": "Team not found"}, 404
+    return [player.to_dict() for player in use_case_by_team]
+
 
 if __name__ == '__main__':
     app = Flask(__name__)
