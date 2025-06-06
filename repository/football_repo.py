@@ -7,7 +7,11 @@ from domain.team import Team
 
 
 class FootBallRepository:
-    def __init__(self):
+    def __init__(self, player_id:int = None, team_id:int = None, lastname:str = None):
+        self.player_id = player_id
+        self.team_id = team_id
+        self.lastname = lastname
+        # Load environment variables from .env file
         load_dotenv()
         self.api_key = os.getenv("API_KEY")
 
@@ -27,9 +31,8 @@ class FootBallRepository:
 
         return [Player.from_dict(player['player']) for player in player_data['response']]
 
-
-    def get_player_by_lastname(self, lastname: str):
-        url = f"https://v3.football.api-sports.io/players/profiles?search={lastname}"
+    def get_player_by_lastname(self):
+        url = f"https://v3.football.api-sports.io/players/profiles?search={self.lastname}"
         headers = {
         'x-apisports-key': self.api_key,
         'x-rapidapi-host': 'v3.football.api-sports.io'
@@ -44,8 +47,9 @@ class FootBallRepository:
         return [Player.from_dict(player['player']) for player in player_data['response']]
 
 
-    def get_player_by_id(self, player_id: int):
-        url = f"https://v3.football.api-sports.io/players/profiles?player={player_id}"
+    def get_player_by_id(self):
+
+        url = f"https://v3.football.api-sports.io/players/profiles?player={self.player_id}"
         headers = {
         'x-apisports-key': self.api_key,
         'x-rapidapi-host': 'v3.football.api-sports.io'
@@ -59,8 +63,8 @@ class FootBallRepository:
 
         return [Player.from_dict(player['player']) for player in player_data['response']]  
 
-    def get_players_by_team(self, team_id: int):
-        url = f"https://v3.football.api-sports.io/players/squads?team={team_id}"
+    def get_players_in_team(self):
+        url = f"https://v3.football.api-sports.io/players/squads?team={self.team_id}"
         headers = {
         'x-apisports-key': self.api_key,
         'x-rapidapi-host': 'v3.football.api-sports.io'
@@ -71,14 +75,14 @@ class FootBallRepository:
             raise Exception(f"Error fetching player data: {response.status_code}")
 
         player_data = response.json()
-        team_name = player_data['response'][0]['team']['name']
-        print(f"Team Name: {team_name}")
+        # team_name = player_data['response'][0]['team']['name']
+        # print(f"Team Name: {team_name}")
 
         return [Player.from_dict(player) for data in player_data['response'] for player in data['players']]
     
 
-    def get_team_details_by_id(self, team_id: str):
-        url = f"https://v3.football.api-sports.io/teams?id={team_id}"
+    def get_team_details_by_id(self):
+        url = f"https://v3.football.api-sports.io/teams?id={self.team_id}"
         headers = {
         'x-apisports-key': self.api_key,
         'x-rapidapi-host': 'v3.football.api-sports.io'

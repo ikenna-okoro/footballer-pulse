@@ -11,6 +11,10 @@ bp = Blueprint('my_blueprint', __name__)
 
 player_repository = FootBallRepository()
 use_case = PlayerDetailsUseCase(player_repository)
+all_players = use_case.player_list_use_case()
+players_by_name = use_case.player_list_by_name_use_case()
+players_by_id = use_case.player_list_by_id_use_case()
+players_in_team = use_case.player_list_in_team_use_case()
 
 team_repository = FootBallRepository()
 team_details_use_case = TeamDetailsUseCase(team_repository)
@@ -28,33 +32,31 @@ def homePage():
 # Return all players
 @bp.route("/players", methods=["GET"])
 def get_all_players():
-    return [player.to_dict() for player in use_case.player_list_use_case()]
+    return [player.to_dict() for player in all_players]
 
 
 # Return player by name
 @bp.route("/players/<string:lastname>", methods=["GET"])
-def get_player_by_name(lastname):
-    use_case_by_name = use_case.player_list_by_name_use_case(lastname)
-    if not use_case_by_name:
+def get_player_by_name():
+
+    if not players_by_name:
         return {"error": "Player not found"}, 404
-    return [player.to_dict() for player in use_case_by_name]
+    return [player.to_dict() for player in players_by_name]
 
 
 # Return player by id
 @bp.route("/players/<int:player_id>", methods=["GET"])
-def get_player_by_id(player_id):
-    use_case_by_id = use_case.player_list_by_id_use_case(player_id)
-    if not use_case_by_id:
+def player_details_by_id(player_id):
+    if not players_by_id:
         return {"error": "Player not found"}, 404
-    return [player.to_dict() for player in use_case_by_id]
+    return [player.to_dict() for player in players_by_id]
 
 # Return players in a team (Squad)
 @bp.route("/players/team/<int:team_id>", methods=["GET"])
-def get_players_by_team(team_id):
-    use_case_by_team_squad = use_case.player_list_by_team_use_case(team_id)
-    if not use_case_by_team_squad:
+def get_players_by_team():
+    if not players_in_team:
         return {"error": "Team not found"}, 404
-    return [player.to_dict() for player in use_case_by_team_squad]
+    return [player.to_dict() for player in players_in_team]
 
 # Fans comments for a specific team
 @bp.route("/teams/<int:team_id>", methods=["GET", "POST"])
