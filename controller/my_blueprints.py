@@ -67,10 +67,12 @@ def team_details_for_fans(team_id):
     if request.method == "POST":
         team = team_name
         data = request.get_json()
+        if request.content_type != 'application/json':
+            return {"error": "Content-Type must be application/json"}, 400
         username = data.get('username')
         comment = data.get('comment')
 
-        if not all([team, username, comment]):
+        if not all([username, comment]):
             return {"error": "Missing user data fields"}, 400
 
         return fans_comment_use_case.save_fans_comment_to_db(team, username, comment)
