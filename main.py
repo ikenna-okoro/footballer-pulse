@@ -4,6 +4,7 @@ from repository.fan_models import db
 from controller.my_blueprints import bp
 
 
+
 # Configure the app
 if __name__ == "__main__":
     app = Flask(__name__)
@@ -14,9 +15,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    with app.app_context():
-        result = db.session.execute(text("SELECT * FROM fans_comments"))
-        for row in result:
-            print(row)
-    
     app.run(debug=True)
