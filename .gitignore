@@ -1,7 +1,6 @@
 **/__pycache__/
 .env
-app.py
-
+/instance/fanscomments.db
 
 
 
