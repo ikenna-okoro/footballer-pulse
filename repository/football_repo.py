@@ -17,7 +17,7 @@ class FootBallRepository:
             'x-rapidapi-host': 'v3.football.api-sports.io'
         }
 
-    def make_request(self, endpoint: str, params: dict = None):
+    def _make_request(self, endpoint: str, params: dict = None):
         url = f"{self.BASE_URL}/{endpoint}"
         response = requests.get(url, headers=self.headers, params=params)
         if response.status_code != 200:
@@ -25,21 +25,21 @@ class FootBallRepository:
         return response.json()
 
     def get_all_players(self):
-        player_data = self.make_request("players/profiles")
+        player_data = self._make_request("players/profiles")
         return [Player.from_dict(player['player']) for player in player_data['response']]
 
     def get_player_by_lastname(self, lastname: str):
-        player_data = self.make_request(f"players/profiles", params={"search": lastname})
+        player_data = self._make_request(f"players/profiles", params={"search": lastname})
         return [Player.from_dict(player['player']) for player in player_data['response']]
 
     def get_player_by_id(self, player_id: int):
-        player_data = self.make_request("players/profiles", params={"player": player_id})
+        player_data = self._make_request("players/profiles", params={"player": player_id})
         return [Player.from_dict(player['player']) for player in player_data['response']]  
 
     def get_players_in_team(self, team_id: int):
-        player_data = self.make_request("players/squads", params={"team": team_id})
+        player_data = self._make_request("players/squads", params={"team": team_id})
         return [Player.from_dict(player) for data in player_data['response'] for player in data['players']]
 
     def get_team_details_by_id(self, team_id: str):
-        team_data = self.make_request("teams", params={"id": team_id})
+        team_data = self._make_request("teams", params={"id": team_id})
         return [Team.from_dict(team['team']) for team in team_data['response']]
