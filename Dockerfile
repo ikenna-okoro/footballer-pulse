@@ -1,5 +1,5 @@
 # Base image
-FROM python3:3.12.3
+FROM python:3.12-slim
 
 # Set working directory
 WORKDIR /app
@@ -7,8 +7,9 @@ WORKDIR /app
 # Copy application code
 COPY . /app
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Update system packages and install dependencies
+RUN apt-get update && apt-get upgrade -y && apt-get clean && \
+	pip install --no-cache-dir -r requirements.txt
 
 # Expose the port Flask runs on
 EXPOSE 5000
