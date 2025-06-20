@@ -2,9 +2,9 @@ name: Docker CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ add-unit-tests, main ]
   pull_request:
-    branches: [ main ]
+    branches: [ add-unit-tests, main ]
 
 jobs:
     build-test-deploy:
