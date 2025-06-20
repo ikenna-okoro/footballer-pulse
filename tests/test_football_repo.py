@@ -60,36 +60,3 @@ def test_get_team_details_by_id(mock_team_response):
         assert len(result) == 1
         assert isinstance(result[0], Team)
         assert result[0].name == "Manchester United"
-
-
-
-
-# @pytest.fixture
-# def repo():
-#     return FootBallRepository()
-
-
-
-# def test_get_all_players(repo):
-
-#     mock_api_response = {
-#             "response": [
-#             {"player": {"id": 1, "name": "Messi"}},
-#             {"player": {"id": 2, "name": "Ronaldo"}}
-#         ]
-#     }
-     
-    
-
-#     # Create mock Player instances
-#     mock_players = [
-#         MagicMock(name="Player One"),
-#         MagicMock(name="Player Two")
-#     ]
-
-#     with patch.object(repo, "_make_request", return_value=mock_api_response), \
-#          patch("repository.football_repo.Player.from_dict", side_effect=mock_players):
-    
-#          result = repo.get_all_players()
-
-#     assert len(result) == 2
