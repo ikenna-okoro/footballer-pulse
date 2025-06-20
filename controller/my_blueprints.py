@@ -22,7 +22,7 @@ fans_comment_use_case = FansCommentUseCase(comment_repository)
 # Home screen
 @bp.route("/", methods=["GET"])
 def homePage():
-    return "<h1> Welcome to the Football-Pulse!</h1><p> This is a simple API to get player details.</p>"
+    return jsonify({"Home_message": "Welcome to the Football-Pulse! This is a simple API to get player details"}), 200
 
 
 # Return all players

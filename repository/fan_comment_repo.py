@@ -11,4 +11,4 @@ class CommentRepository:
         db.session.add(new_comment)
         db.session.commit()
 
-        return {"message": "Comment added successfully."}, 201
+        return {"message": "Comment added successfully."}, 202
