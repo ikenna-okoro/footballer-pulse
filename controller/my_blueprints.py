@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request
 from repository.football_repo import FootBallRepository
 from repository.fan_comment_repo import CommentRepository
 from repository.fan_models import FansComment
@@ -22,30 +22,34 @@ fans_comment_use_case = FansCommentUseCase(comment_repository)
 # Home screen
 @bp.route("/", methods=["GET"])
 def homePage():
-    return "<h1> Welcome to the Football-Pulse!</h1><p> This is a simple API to get player details.</p>"
+    return jsonify({"Home_message": "Welcome to the Football-Pulse! This is a simple API to get player details"}), 200
 
 
 # Return all players
 @bp.route("/players", methods=["GET"])
 def get_all_players():
-    return [player.to_dict() for player in players_use_case.player_list_use_case()]
+    data = [player.to_dict() for player in players_use_case.player_list_use_case()]
+    return jsonify(data), 200
 
 
 # Return player by name
 @bp.route("/players/<string:lastname>", methods=["GET"])
 def get_player_by_name(lastname):
-    return [player.to_dict() for player in players_use_case.player_list_by_name_use_case(lastname)]
+    data = [player.to_dict() for player in players_use_case.player_list_by_name_use_case(lastname)]
+    return jsonify(data), 200
 
 
 # Return player by id
 @bp.route("/players/<int:player_id>", methods=["GET"])
 def get_player_by_id(player_id):
-    return [player.to_dict() for player in players_use_case.player_list_by_id_use_case(player_id)]
+    data = [player.to_dict() for player in players_use_case.player_list_by_id_use_case(player_id)]
+    return jsonify(data), 200
 
 # Return players by  (Squad)
 @bp.route("/players/team/<int:team_id>", methods=["GET"])
 def players_in_team(team_id):
-    return [player.to_dict() for player in players_use_case.player_list_in_team_use_case(team_id)]
+    data = [player.to_dict() for player in players_use_case.player_list_in_team_use_case(team_id)]
+    return jsonify(data), 200
 
 # Fans comments for a specific team
 @bp.route("/teams/<int:team_id>", methods=["GET", "POST"])
@@ -74,4 +78,4 @@ def team_details_for_fans(team_id):
     return jsonify({    
         "team": team_data,
         "comments": comments_data
-    })
+    }), 200

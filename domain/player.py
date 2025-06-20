@@ -5,10 +5,10 @@ from typing import Optional
 class Player:
     id: int
     name: str
-    age: int
-    photo: str
-    position: str
-    number: int
+    age: Optional[int] = None
+    photo: Optional[str] = ""
+    position: Optional[str] = ""
+    number: Optional[int] = None
     firstname: Optional[str] = ""
     birth: Optional[str] = ""
     height: Optional[str] = ""

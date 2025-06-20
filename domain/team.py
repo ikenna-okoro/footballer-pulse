@@ -5,11 +5,11 @@ from typing import Optional
 class Team:
     id: int
     name: str
-    code: str
-    country: str
-    founded: int
-    national: bool
-    logo: str
+    code: Optional[str] = None
+    country: Optional[str] = None
+    founded: Optional[int] = None
+    national: Optional[bool] = None
+    logo: Optional[str] = None
 
 
     @classmethod
